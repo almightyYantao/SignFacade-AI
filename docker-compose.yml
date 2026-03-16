@@ -10,6 +10,10 @@ services:
     expose:
       - "8080"
     restart: unless-stopped
+    networks:
+      app-net:
+      macvlan:
+        ipv4_address: 192.168.220.158
 
   frontend:
     build:
@@ -20,6 +24,16 @@ services:
     ports:
       - "80:80"
     restart: unless-stopped
+    networks:
+      app-net:
+      macvlan:
+        ipv4_address: 192.168.220.157
+
+networks:
+  app-net:
+    driver: bridge
+  macvlan:
+    external: true
 
 volumes:
   backend-data:
